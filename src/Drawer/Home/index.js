@@ -10,12 +10,17 @@ import * as Colors from '../Themes/colors';
 class HomeScreen extends Component {
     render() {
         return (
-            <Router sceneStyle={{ paddingTop: 65 }}>
-                <Scene key="auth">
-                    <Scene key="login" component={LoginForm} title="Please Login" />
-                </Scene>
-            </Router>
+            <View style={styles.container}>
+                <Text style={{ textAlign: 'center', color: Colors.primary, marginRight: 10 }}>User Screen</Text>
+            </View>
         );
+        // return (
+        //     <Router sceneStyle={{ paddingTop: 65 }}>
+        //         <Scene key="auth">
+        //             <Scene key="login" component={LoginForm} title="Please Login" />
+        //         </Scene>
+        //     </Router>
+        // );
     }
 }
 

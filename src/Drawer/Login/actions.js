@@ -5,7 +5,8 @@ import {
     PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER
+    LOGIN_USER,
+    SIGN_OUT_USER, LOGIN_USER_AUTO
 } from './types';
 
 export const emailChanged = (text) => {
@@ -26,22 +27,53 @@ export const passwordChanged = (text) => {
 
 export const loginUser = ({email, password} ) => {
     return (dispatch) => {
-        dispatch({ type: LOGIN_USER });
-        console.log(email+' '+password);
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(user => loginUserSuccess(dispatch, user))
-            .catch((error) => {
-                firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(user => loginUserSuccess(dispatch, user))
-                    .then(console.log(user))
-                    .catch(() => loginUserFail(dispatch));
-            });
-    console.log('loginUser: '+email+password);
+        //dispatch({ type: LOGIN_USER , payload });
+        console.log('email: '+email+' , password: '+password);
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(function(){return firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((user) => {loginUserSuccess(dispatch, user);console.log('loginUser: '+user.email);})
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    loginUserFail(dispatch, errorCode);
+                    console.log('error: '+errorCode+' '+errorMessage);
+                    // firebase.auth().createUserWithEmailAndPassword(email, password)
+                    //     .then(user => loginUserSuccess(dispatch, user))
+                    //     .catch(() => loginUserFail(dispatch));
+                });})
+            .catch((error)=>{console.log(error)});
+        dispatch({ type: LOGIN_USER  });
+        // firebase.auth().signInWithEmailAndPassword(email, password)
+        //     .then((user) => {loginUserSuccess(dispatch, user);console.log('loginUser: '+user);})
+        //     .catch((error) => {
+        //         const errorCode = error.code;
+        //         const errorMessage = error.message;
+        //         loginUserFail(dispatch, errorCode);
+        //         console.log('error: '+errorCode+' '+errorMessage);
+        //         // firebase.auth().createUserWithEmailAndPassword(email, password)
+        //         //     .then(user => loginUserSuccess(dispatch, user))
+        //         //     .catch(() => loginUserFail(dispatch));
+        //     });
+        // const user = firebase.auth().currentUser;
+        // if(user!=null){loginUserSuccess(dispatch, user)}
+    //console.log('loginUser: '+user);
     };
 };
 
-export const loginUserFail = (dispatch) => {
-    dispatch({ type: LOGIN_USER_FAIL });
+export const loginUserAuto = () => {
+    return (dispatch) => {
+        dispatch({type: LOGIN_USER_AUTO});
+        loginUserSuccess(dispatch, firebase.auth().currentUser);
+        console.log('action,loginauto')
+
+    };
+};
+
+export const loginUserFail = (dispatch, error) => {
+    dispatch({
+        type: LOGIN_USER_FAIL ,
+        payload: error
+    });
 };
 
 export const loginUserSuccess = (dispatch, user) => {
@@ -50,5 +82,26 @@ export const loginUserSuccess = (dispatch, user) => {
         payload: user
     });
 
-    Actions.main();
+    //Actions.main();
+};
+
+// export const signOutUser = ( user) => {
+//     dispatch({
+//         type: SIGN_OUT_USER ,
+//         payload: user
+//     });
+// };
+
+export const signOutUser = () => {
+    return (dispatch) => {
+        //dispatch({ type: LOGIN_USER , payload });
+        firebase.auth().signOut().then(function(){
+            //console.log('signoutuser: '+firebase.auth.currentUser);
+        }).catch(function(){
+            console.log('signouterror');
+        });
+        console.log('actions,signoutuser: '+firebase.auth.currentUser);
+        dispatch({ type: SIGN_OUT_USER });
+
+    };
 };

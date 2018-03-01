@@ -18,6 +18,6 @@ middleware=applyMiddleware(ReduxThunk);
 
 export default (data = {}) => {
     const store = createStore(reducers, data, middleware);
-    console.log('store: '+store);
+    //console.log('store: '+store);
     return store;
 };

@@ -7,26 +7,40 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import * as Colors from '../Themes/colors';
+import {Button,CardSection} from '../../constants/commonUI';
 import * as reducer from '../reducer';
+import firebase from 'firebase';
 import { connect } from 'react-redux';
+import {emailChanged, loginUser, loginUserSuccess, passwordChanged, signOutUser} from "../Login/actions";
 
 class UserScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
     logout() {
-        const { updateCurrentUser } = this.props;
-        updateCurrentUser({});
-        console.log('logout');
+        console.log('LOGOUT!');
+        this.props.signOutUser();
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={[styles.input, { borderColor: Colors.primary }]}>
-                    <TouchableOpacity style={styles.btnSubmit} onPress={() => this.logout()}>
-                        <Text style={{ textAlign: 'center', color: Colors.primary }}>Logout</Text>
-                    </TouchableOpacity>
-                </View>
+                <Text style={{ textAlign: 'center', color: Colors.primary, marginRight: 10 }}>User Screen</Text>
+                <CardSection>
+                    <Button onPress={() => this.logout()}>Logout</Button>
+                </CardSection>
             </View>
         );
+        // return (
+        //     <View style={styles.container}>
+        //         <View style={[styles.input, { borderColor: Colors.primary }]}>
+        //             <TouchableOpacity style={styles.btnSubmit} onPress={() => this.logout()}>
+        //                 <Text style={{ textAlign: 'center', color: Colors.primary }}>Logout</Text>
+        //             </TouchableOpacity>
+        //         </View>
+        //     </View>
+        // );
     }
 }
 
@@ -50,12 +64,15 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = store => ({
-    currentUser: store.currentUser,
-});
-
-const mapDispatchToProps = {
-    updateCurrentUser: reducer.updateCurrentUser,
+const mapStateToProps = ({auth}) => {
+    const { user } = auth;
+    return { user };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserScreen);
+// const mapDispatchToProps = {
+//     updateCurrentUser: reducer.updateCurrentUser,
+// };
+export default connect(mapStateToProps, {
+    signOutUser,
+})(UserScreen);
+//export default connect(mapStateToProps, mapDispatchToProps)(UserScreen);

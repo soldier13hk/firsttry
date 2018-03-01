@@ -9,10 +9,11 @@ import {
 import PropTypes from 'prop-types';
 import * as Colors from '../Themes/colors';
 import { getNavigationOptions } from '../utils/navigation';
-import { emailChanged, passwordChanged, loginUser } from './actions';
+import { emailChanged, passwordChanged, loginUser, loginUserSuccess } from './actions';
 import { Card, CardSection, Input, Button, Spinner } from '../../constants/commonUI';
 import * as reducer from '../reducer';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -20,6 +21,10 @@ class LoginScreen extends Component {
         this.state = {};
 
     }
+    componentDidMount(){
+        //console.log('current user: '+firebase.auth().currentUser.email);
+    }
+
     login() {
         const { updateCurrentUser } = this.props;
         updateCurrentUser({ name: 'carol '});
@@ -40,9 +45,10 @@ class LoginScreen extends Component {
     onButtonPress() {
         const email = this.props.email;
         const password = this.props.password;
-        //console.log(typeof email);
-        //console.log(typeof password);
+        console.log('login,button, pw: '+password);
         this.props.loginUser({ email, password });
+        const user = this.props.user;
+        console.log('button, user: '+user);
     }
 
     renderButton() {
@@ -140,10 +146,10 @@ LoginScreen.navigationOptions = ({ navigation }) => getNavigationOptions('Login'
 // export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 const mapStateToProps = ({auth}) => {
      // console.log(store);
-     const { email, password, error, loading } = auth;
-     console.log('auth: '+ auth.user+' '+auth.email);
+     const { email, password, error, user, loading } = auth;
+     //console.log('user: '+ auth.user+'email: '+' '+auth.email);
      // + 'email, password, error, loading:'+,email+password+error+loading
-     return { email, password, error, loading };
+     return { email, password, error, user, loading };
     // email = store.email;
     // password = store.password;
     // loading = store.loading;
@@ -154,5 +160,5 @@ const mapStateToProps = ({auth}) => {
 };
 
 export default connect(mapStateToProps, {
-    emailChanged, passwordChanged, loginUser
+    emailChanged, passwordChanged, loginUser, loginUserSuccess,
 })(LoginScreen);

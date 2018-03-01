@@ -31,7 +31,7 @@ const getDrawerIcon = (iconName, tintColor) => <Icon name={iconName} size={20} c
 const homeDrawerIcon = ({ tintColor }) => getDrawerIcon('home', tintColor);
 const userDrawerIcon = ({ tintColor }) => getDrawerIcon('user', tintColor);
 const cameraDrawerIcon = ({ tintColor }) => getDrawerIcon('camera', tintColor);
-const switchDrawerIcon = ({ tintColor }) => getDrawerIcon('lightbulb', tintColor);
+const switchDrawerIcon = ({ tintColor }) => getDrawerIcon('lightbulb-o', tintColor);
 const lockDrawerIcon = ({ tintColor }) => getDrawerIcon('lock', tintColor);
 const todoDrawerIcon = ({ tintColor }) => getDrawerIcon('pencil', tintColor);
 
