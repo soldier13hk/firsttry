@@ -53,6 +53,6 @@ const Drawer = DrawerNavigator({
     TodoScreen: { screen: TodoScreen, navigationOptions: todoNavOptions },
 }, getDrawerConfig(300, 'left', 'HomeScreen'));
 
-Drawer.navigationOptions = ({ navigation }) => getNavigationOptionsWithAction('ReactNavDrawer', Colors.primary, 'white', getDrawerItem(navigation));
+Drawer.navigationOptions = ({ navigation }) => getNavigationOptionsWithAction('Drawer', Colors.primary, 'white', getDrawerItem(navigation));
 
 export default Drawer;
