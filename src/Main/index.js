@@ -25,29 +25,42 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log('user is logged. user:' + firebase.auth().currentUser.email);
+                this.props.loginUserAuto(firebase.auth().currentUser);
+            }
+        });
 
     }
-    componentWillMount(){
-        this.props.loginUserAuto();
-        if(firebase.auth().currentUser!=null){
+    componentWillMount() {
+        // firebase.auth().onAuthStateChanged((user) => {
+        //     if (user) {
+        //         console.log('user is logged. user:' + firebase.auth().currentUser.email);
+        //         this.props.loginUserAuto(firebase.auth().currentUser);
+        //     }
+        // });
+        //this.props.loginUserAuto(firebase.auth().currentUser);
+        if(firebase.auth().currentUser){
             console.log('main,willmount,current user: '+firebase.auth().currentUser.email);
         }
         console.log('main,loginauto: '+this.props.user);
     }
     render() {
-        let userstatus = false;
-
-        firebase.auth().onAuthStateChanged(function(user){
-            if(user){
-                userstatus = true;
-            }else{
-                userstatus = false;
-            }
-
-        });
+        // let userstatus = false;
+        //
+        // firebase.auth().onAuthStateChanged(function(user){
+        //     if(user){
+        //         userstatus = true;
+        //     }else{
+        //         userstatus = false;
+        //     }
+        //
+        // });
         const user = this.props.user;
+        //console.log('here');
         //const user = firebase.auth().currentUser.uid;
-        if(firebase.auth().currentUser!=null){
+        if(firebase.auth().currentUser){
             console.log('main,render,current user: '+firebase.auth().currentUser.email+' user: '+user);
         }
         //console.log('status: '+userstatus+'user: '+user);

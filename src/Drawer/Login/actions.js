@@ -60,10 +60,10 @@ export const loginUser = ({email, password} ) => {
     };
 };
 
-export const loginUserAuto = () => {
+export const loginUserAuto = (user) => {
     return (dispatch) => {
         dispatch({type: LOGIN_USER_AUTO});
-        loginUserSuccess(dispatch, firebase.auth().currentUser);
+        loginUserSuccess(dispatch, user);
         console.log('action,loginauto')
 
     };

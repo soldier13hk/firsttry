@@ -11,6 +11,7 @@ import {Button,CardSection} from '../../constants/commonUI';
 import * as reducer from '../reducer';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
+import Router from './Router';
 import {emailChanged, loginUser, loginUserSuccess, passwordChanged, signOutUser} from "../Login/actions";
 
 class UserScreen extends Component {

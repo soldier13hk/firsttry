@@ -63,6 +63,8 @@ class LoginScreen extends Component {
         );
     }
     render() {
+        const user = this.props.user;
+        console.log('LoginPage, user: '+user);
         return (
             <Card>
                 <CardSection>
@@ -154,7 +156,6 @@ const mapStateToProps = ({auth}) => {
     // password = store.password;
     // loading = store.loading;
     // error = store.error;
-
 
 
 };

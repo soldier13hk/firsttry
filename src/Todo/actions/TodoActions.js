@@ -15,7 +15,7 @@ export const todoUpdate = ({ prop, value }) => {
 };
 
 export const todoCreate = ({ todoitem, isdone }) => {
-    const currentUser  = firebase.auth().uid;
+    const currentUser  = firebase.auth().currentUser.uid;
 
     return (dispatch) => {
         firebase.database().ref(`/users/`+currentUser+`/todos`)
@@ -28,7 +28,7 @@ export const todoCreate = ({ todoitem, isdone }) => {
 };
 
 export const todoFetch = () => {
-    const currentUser = firebase.auth().uid;
+    const currentUser = firebase.auth().currentUser.uid;
 
     return (dispatch) => {
         firebase.database().ref('/users/'+ currentUser +`/todos`)
@@ -39,7 +39,7 @@ export const todoFetch = () => {
 };
 
 export const todoSave = ({ todoitem, isdone, uid }) => {
-    const currentUser = firebase.auth().uid;
+    const currentUser = firebase.auth().currentUser.uid;
 
     return (dispatch) => {
         firebase.database().ref(`/users/`+currentUser+`/todos/${uid}`)
@@ -52,7 +52,7 @@ export const todoSave = ({ todoitem, isdone, uid }) => {
 };
 
 export const todoDelete = ({ uid }) => {
-    const currentUser = firebase.auth().uid;
+    const currentUser = firebase.auth().currentUser.uid;
 
     return () => {
         firebase.database().ref(`/users/`+currentUser+`/todos/${uid}`)
