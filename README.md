@@ -16,3 +16,7 @@ After the building of package,
 react-native start
 ```
 and reload the app.
+
+It looks like this:
+
+![image](https://github.com/soldier13hk/firsttry/blob/master/safe_image.gif)
