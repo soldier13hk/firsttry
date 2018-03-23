@@ -7,8 +7,7 @@ To run the app, you have to have npm installed.
 git clone "this repository"
 cd FirstTry
 npm i
-react-native run-ios
-react-native run-android
+react-native run-ios / react-native run-android
 ```
 
 After the building of package,
