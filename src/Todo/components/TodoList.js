@@ -34,6 +34,7 @@ class TodoList extends Component {
     }
 
     render() {
+        console.log('todolist: typeofdatasource: '+typeof this.dataSource);
         return (
 
             <ListView
