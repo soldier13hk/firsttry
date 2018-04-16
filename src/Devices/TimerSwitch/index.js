@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, FlatList, ActivityIndicator, Text, View  } from 'react-native';
 import * as Colors from '../Themes/colors';
-import CurrentStatus from './components/CurrentStatus';
-import ManualControl from './components/ManualControl';
 //import TimerList from './components/TimerList';
 import {IP} from '../../constants/serverIP';
 import RouterComponent from './Router';
