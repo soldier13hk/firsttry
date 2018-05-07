@@ -61,6 +61,23 @@ class LockScreen extends Component {
 
           })
       });
+      fetch('http://'+IP+'/dataOfSwitches',
+      { method: 'GET',
+      headers: { 'Content-Type': 'application/json',
+      "Authorization": 'Basic '+Base64.btoa('user' + ":" + '123456')}  })
+        .then((response) => response.json())
+          .then((responseJson) => {
+              this.setState({
+                  dataSource: responseJson,
+                  isLoading: false,
+              }, function(){
+
+              });
+
+          })
+          .catch((error) =>{
+              console.error(error);
+          });
     }
     render() {
 
@@ -103,19 +120,19 @@ class LockScreen extends Component {
           <CardSection>
             <Button onPress={this._OpenDoor.bind(this)}> {this.state.dataSource.lock ? 'Lock' : 'Unlock'} The Door</Button>
           </CardSection>
-            <WebView
-                style={styles.backgroundVideo}
-                source={{uri: link}}
-               // source={{uri:"https://www.youtube.com/embed/ZZ5LpwO-An4?rel=0&autoplay=0&showinfo=0&controls=0"}}
 
-            />
           </View>
 
       );
     }
     }
 }
-
+// <WebView
+//     style={styles.backgroundVideo}
+//     source={{uri: link}}
+//    // source={{uri:"https://www.youtube.com/embed/ZZ5LpwO-An4?rel=0&autoplay=0&showinfo=0&controls=0"}}
+//
+// />
 const styles = StyleSheet.create({
   backgroundVideo: {
     width:300,
